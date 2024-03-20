@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'npm ci'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -85,9 +85,8 @@ function! s:check_back_space() abort
 endfunction
 " 讓 enter 鍵自動完成第一個建議並讓 coc 進行格式化（不確定個格式化指的是什麼，我看不太出來）
 " enter 可以被重複 keymap（看不懂就算了，意思是你亂搞不會出錯）
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm()
-        \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " 用 \rn 重新命名變數、函數（原文寫「符號」）
 nmap <leader>rn <Plug>(coc-rename)
 
