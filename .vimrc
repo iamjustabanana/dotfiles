@@ -72,16 +72,15 @@ endif
 
 " 用 tab 鍵觸發自動補全
 " 注意：載入設定後記得用命令 `verbose imap <tab>` 確定這沒有被其他外掛覆蓋掉
-"inoremap <silent><expr> <TAB>
-"        \ coc#pum#visible() ? "\<C-n>" :
-"    \ <SID> check_back_space() ? "\<TAB>" :
-"        \ coc#refresh()
-"inoremap <expr><S-TAB> coc#pum#visible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 " 讓 enter 鍵自動完成第一個建議並讓 coc 進行格式化（不確定個格式化指的是什麼，我看不太出來）
 " enter 可以被重複 keymap（看不懂就算了，意思是你亂搞不會出錯）
